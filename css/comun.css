@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Nosifer&family=Oxygen&family=Roboto+Slab:wght@300&family=Rubik:wght@300&family=Skranji&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    color: black;
+    font-family: 'Rubik', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+header {
+    background: linear-gradient(360deg, white, #5271ff);
+    text-align: center;
+}
+
+header img {
+    width: 200px;
+}
+
+header ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+header ul li {
+    padding: 10px;
+    text-align: center;
+}
+
+header ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+}
+/* 
+header ul li:hover {
+    background-color: white;
+} */
+
+header ul li a:hover {
+    color: #5271ff;
+}
+
+h1 {
+    text-align: center;
+    font-size: 30px;
+}
+
+p {
+    -webkit-text-stroke: 1.5px black;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.user {
+    background: radial-gradient(white, #5271ff);
+}
+
+footer {
+    background: linear-gradient(white, #5271ff);
+    height: 100px;
+    padding: 5px;
+    text-align: center;
+    width: 100%;
+}
+
+footer img {
+    margin: 20px;
+}

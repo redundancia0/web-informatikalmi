@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+section {
+    border-radius: 10px;
+    background: radial-gradient(white, #5271ff);
+    margin: 20px;
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+    justify-content: space-between; 
+    padding: 10px;
+}
+
+section h1 {
+    font-size: 20px;
+    text-decoration: none;
+}
+
+section p {
+    text-align: center;
+    font-weight: bold;
+}
+
+section img {
+    width: 300px;
+    margin: 0 auto;
+}
+
+span {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+h1 {
+    text-align: center;
+}

@@ -1,0 +1,35 @@
+section {
+    border-radius: 10px;
+    margin: 10px auto;
+    padding: 10px auto;
+    width: 50%;
+    text-align: center;
+    background: radial-gradient(white, #5271ff);
+}
+
+section h1 {
+    margin: 20px;
+    padding: 20px;
+    font-size: 30px;
+    text-decoration: none;
+}
+
+section p {
+    text-align: center;
+    /* font-weight: bold; */
+    font-size: 20px;
+    margin: 10px;
+    padding: 10px;
+}
+
+section img {
+    width: 500px;
+    margin: 0 auto;
+}
+
+section span {
+    margin: 20px;
+    padding: 20px;
+    font-weight: bolder;
+    font-size: 35px;
+}

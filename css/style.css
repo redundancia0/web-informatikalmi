@@ -1,0 +1,72 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+section {
+    border-radius: 10px;
+    background: radial-gradient(white, #5271ff);
+    margin: 20px;
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+    justify-content: space-between; 
+    padding: 10px;
+}
+
+section h1 {
+    font-size: 20px;
+    text-decoration: none;
+}
+
+section p {
+    text-align: center;
+    font-weight: bold;
+}
+
+section img {
+    width: 300px;
+    margin: 0 auto;
+}
+
+span {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+h1 {
+    text-align: center;
+}
+
+input {
+    width: 200px;
+}
+
+#toggleSearch {
+    margin: 20px;
+    cursor: pointer;
+}
+
+#searchInput {
+        height: 25px;
+}
+
+#toggleSearch img{
+    width: 30px;
+}
+
+#searchContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#imageContainer {
+    margin-right: 10px; 
+}
+
+#submit {
+    width: 50px;
+    height: 25px;
+}

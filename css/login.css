@@ -1,0 +1,36 @@
+h1 {
+    text-align: center;
+    margin: 10px auto;
+}
+form {
+    background: radial-gradient(white, #5271ff);
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+
+form img {
+    width: 300px;
+    margin: 0 auto;
+}
+
+form input {
+    margin: 0px auto;
+    width: 200px;
+    height: 25px;
+    text-align: center;
+    font-weight: bolder;
+}
+
+form label {
+    text-align: center;
+    font-weight: bolder;
+}
+
+textarea {
+    max-height: 200px;
+    resize: vertical;
+}
