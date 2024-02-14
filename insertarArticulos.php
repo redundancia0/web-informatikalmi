@@ -42,6 +42,7 @@
 </select>
 <br>
 <div class="all">
+<script src="script.js"></script>
 <div id="discoduros" style="display:none;">
     <label for="MEMORIA">Memoria</label>
     <input type="text" id="MEMORIA_DURO" name="MEMORIA">

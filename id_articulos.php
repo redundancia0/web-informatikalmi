@@ -5,7 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/id_articulos.css">
     <link rel="stylesheet" href="css/comun.css">
-    <title>InformatikAlmi | Articulo</title>
+    <?php 
+    include_once 'bbdd.php';
+    $id_producto = $_GET['id_producto'];
+    $productos = get_productos_id($id_producto);
+        echo "<title>".$producto['NOMBRE']."</title>";
+    ?>
 </head>
 <body>
     <header>
@@ -17,7 +22,6 @@
         include_once 'bbdd.php';
         if(isset($_GET['id_producto'])) {
             $id_producto = $_GET['id_producto'];
-            // echo $id_producto;
             $productos = get_productos_id($id_producto);
             if(!empty($productos))
             $producto = $productos[0];
