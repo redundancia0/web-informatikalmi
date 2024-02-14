@@ -34,3 +34,23 @@ textarea {
     max-height: 200px;
     resize: vertical;
 }
+
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: auto;
+    border: 1px solid black;}
+
+th, td {
+    border: 1px solid black;
+    padding: 6px;
+}
+
+td {
+    color: black;
+    font-weight: bold;
+}
+
+th {
+    background-color: #5271ff;
+}

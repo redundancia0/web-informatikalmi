@@ -1,6 +1,7 @@
 .container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 section {
@@ -9,24 +10,27 @@ section {
     margin: 20px;
     padding: 20px;
     width: 400px;
+    height: 400px;
     text-align: center;
-    justify-content: space-between; 
-    padding: 10px;
 }
 
-section h1 {
+section h2 {
     font-size: 20px;
+}
+
+section a {
     text-decoration: none;
 }
 
 section p {
-    text-align: center;
     font-weight: bold;
 }
 
 section img {
-    width: 300px;
+    width: 80%;
+    max-width: 250px;
     margin: 0 auto;
+    overflow: hidden;
 }
 
 span {
@@ -36,4 +40,32 @@ span {
 
 h1 {
     text-align: center;
+}
+
+#toggleSearch {
+    margin: 20px;
+    cursor: pointer;
+}
+
+#searchInput {
+        height: 25px;
+}
+
+#toggleSearch img{
+    width: 30px;
+}
+
+#searchContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#imageContainer {
+    margin-right: 10px; 
+}
+
+#submit {
+    width: 50px;
+    height: 25px;
 }

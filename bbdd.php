@@ -37,13 +37,13 @@ function selectProductos() {
     return $resultados;
 }
 
-// $productos = selectProductos();
+// // $productos = selectProductos();
 
-if ($productos !== false) {
-    print_r($productos);
-} else {
-    echo "No se pudo conectar a la base de datos.";
-}
+// if ($productos !== false) {
+//     print_r($productos);
+// } else {
+//     echo "No se pudo conectar a la base de datos.";
+// }
 
 function login($usuarioProveedor, $passwordProveedor) {
     $conn = conectarOracle();
@@ -59,7 +59,7 @@ function login($usuarioProveedor, $passwordProveedor) {
 
     oci_bind_by_name($stmt, ':usuarioproveedor', $usuarioProveedor);
     oci_bind_by_name($stmt, ':passwordproveedor', $passwordProveedor);
-
+    
     oci_execute($stmt);
 
     $id_cliente = -1;
@@ -75,24 +75,24 @@ function login($usuarioProveedor, $passwordProveedor) {
 
     return $result;
 }
-function insert_producto($nombre, $precio, $stock, $imagen, $descripcion, $tipo_producto, $memoria, $velocidad, $tipo_memoria, $nucleos, $tipo_disco, $memoria_ram, $tamano, $peso, $tipo_liquido, $tipo_conexion, $senal_ruido, $potencia) {
-    $conn = conectarOracle();
+function insert_producto($nombre, $precio, $stock, $imagen, $descripcion, $memoria, $velocidad, $tipo_memoria, $nucleos, $tipo_disco, $memoria_ram, $tamano, $peso, $tipo_liquido, $tipo_conexion, $senal_ruido, $potencia) {
 
+    $conn = conectarOracle();
+    
     if (!$conn) {
         $e = oci_error();
         trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
     }
 
     // Preparar la llamada al procedimiento
-    $stmt = oci_parse($conn, 'BEGIN agregar_producto(:p_nombre, :p_precio, :p_stock, :p_imagen, :p_descripcion, :p_tipo_producto, :p_memoria, :p_velocidad, :p_tipo_memoria, :p_nucleos, :p_tipo_disco, :p_memoria_ram, :p_tamano, :p_peso, :p_tipo_liquido, :p_tipo_conexion, :p_senal_ruido, :p_potencia); END;');
+    $stmt = oci_parse($conn, 'BEGIN agregar_producto(:p_nombre, :p_precio, :p_stock, :p_imagen, :p_descripcion,:p_memoria, :p_velocidad, :p_tipo_memoria, :p_nucleos, :p_tipo_disco, :p_memoria_ram, :p_tamano, :p_peso, :p_tipo_liquido, :p_tipo_conexion, :p_senal_ruido, :p_potencia); END;');
 
     // Vincular los parámetros
     oci_bind_by_name($stmt, ':p_nombre', $nombre);
     oci_bind_by_name($stmt, ':p_precio', $precio);
     oci_bind_by_name($stmt, ':p_stock', $stock);
-    oci_bind_by_name($stmt, ':p_imagen', $imagen); // Utiliza el nombre de la imagen proporcionado
+    oci_bind_by_name($stmt, ':p_imagen', $imagen);
     oci_bind_by_name($stmt, ':p_descripcion', $descripcion);
-    oci_bind_by_name($stmt, ':p_tipo_producto', $tipo_producto);
     oci_bind_by_name($stmt, ':p_memoria', $memoria);
     oci_bind_by_name($stmt, ':p_velocidad', $velocidad);
     oci_bind_by_name($stmt, ':p_tipo_memoria', $tipo_memoria);
@@ -117,9 +117,57 @@ function insert_producto($nombre, $precio, $stock, $imagen, $descripcion, $tipo_
     oci_free_statement($stmt);
     oci_close($conn);
 
-    return true;
+    return $result;
 }
 
+function eliminarArticulos($id_producto){
+    $conn = conectarOracle();
+    
+    if (!$conn) {
+        $e = oci_error();
+        trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+    }
+    
+    $stmt = oci_parse($conn, 'BEGIN eliminar_producto(:p_id_producto); END;');
+
+    oci_bind_by_name($stmt, ':p_id_producto', $id_producto);
+  
+    $result = oci_execute($stmt);
+    if (!$result) {
+        $e = oci_error($stmt);
+        trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+    }
+
+    oci_free_statement($stmt);
+    oci_close($conn);
+
+    return $result;
+}
+
+function editarArticulos($id_producto){
+    $conn = conectarOracle();
+    
+    if (!$conn) {
+        $e = oci_error();
+        trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+    }
+    
+    $stmt = oci_parse($conn, 'BEGIN eliminar_producto(:p_id_producto); END;');
+
+    oci_bind_by_name($stmt, ':p_id_producto', $id_producto);
+  
+    $result = oci_execute($stmt);
+    if (!$result) {
+        $e = oci_error($stmt);
+        trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+    }
+
+    oci_free_statement($stmt);
+    oci_close($conn);
+
+    return $result;
+}
+    
    function get_productos_id($id_producto) {
         
         $conn = conectarOracle();
@@ -154,4 +202,34 @@ function insert_producto($nombre, $precio, $stock, $imagen, $descripcion, $tipo_
         oci_close($conn);
         return $productos;
     }
+
+    function busqueda($term) {
+        $conn = conectarOracle();
+    
+        if (!$conn) {
+            $e = oci_error();
+            trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+        }
+    
+        $term = strtolower($term);
+    
+        $query = "SELECT * FROM productos WHERE LOWER(nombre) LIKE '%' || :term || '%'";
+    
+        $stmt = oci_parse($conn, $query);
+    
+        oci_bind_by_name($stmt, ":term", $term);
+    
+        oci_execute($stmt);
+    
+        $resultados = array();
+        while ($row = oci_fetch_assoc($stmt)) {
+            $resultados[] = $row;
+        }
+    
+
+        oci_free_statement($stmt);
+        oci_close($conn);
+    
+        return $resultados;
+    }    
 ?>
