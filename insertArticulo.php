@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 $memoria = "";
 $velocidad = "";
@@ -89,8 +87,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $result = insert_producto($nombre, $precio, $stock, $ruta_imagen, $descripcion, $memoria, $velocidad, $tipo_memoria, $nucleos, $tipo_disco, $memoria_ram, $tamano, $peso, $tipo_liquido, $tipo_conexion, $senal_ruido, $potencia);
 
-    var_dump($_POST);
+    // var_dump($_POST);
     echo "Noticia insertada correctamente";
+    echo "<br>";
     echo "<a href='index.php'>Volver al inicio</a>";
 }
 ?>

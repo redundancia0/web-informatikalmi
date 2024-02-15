@@ -146,46 +146,192 @@ function eliminarArticulos($id_producto){
     return $result;
 }
 
-function editar_producto($id_producto, $nombre, $precio, $stock, $imagen, $descripcion, $memoria, $velocidad, $tipo_memoria, $nucleos, $tipo_disco, $memoria_ram, $tamano, $peso, $tipo_liquido, $tipo_conexion, $senal_ruido, $potencia) {
-
+function editar_producto($id_producto, $nombre, $precio, $stock, $imagen, $descripcion, $memoria, $velocidad, $tipo_memoria, $nucleos, $tipo_disco, $memoria_ram, $tamano, $peso, $tipo_liquido, $tipo_conexion, $senal_ruido, $potencia, $tipo_producto) {
     $conn = conectarOracle();
-    
+
     if (!$conn) {
         $e = oci_error();
         trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
     }
 
-    $query = "UPDATE productos SET nombre = :p_nombre, precio = :p_precio, stock = :p_stock, imagen = :p_imagen, descripcion = :p_descripcion, memoria = :p_memoria, velocidad = :p_velocidad, tipo_memoria = :p_tipo_memoria, nucleos = :p_nucleos, tipo_disco = :p_tipo_disco, memoria_ram = :p_memoria_ram, tamano = :p_tamano, peso = :p_peso, tipo_liquido = :p_tipo_liquido, tipo_conexion = :p_tipo_conexion, senal_ruido = :p_senal_ruido, potencia = :p_potencia WHERE id_producto = :p_id_producto";
+    // Consulta para actualizar la tabla productos
+    $query = "UPDATE productos
+              SET nombre = :p_nombre, 
+                  precio = :p_precio, 
+                  stock = :p_stock, 
+                  imagen = :p_imagen, 
+                  descripcion = :p_descripcion
+              WHERE id_producto = :p_id_producto";
 
+    // Preparar la consulta
     $stmt = oci_parse($conn, $query);
 
-    oci_bind_by_name($stmt, ':id_noticia', $id_producto);
+    // Asociar parámetros
+    oci_bind_by_name($stmt, ':p_id_producto', $id_producto);
     oci_bind_by_name($stmt, ':p_nombre', $nombre);
     oci_bind_by_name($stmt, ':p_precio', $precio);
     oci_bind_by_name($stmt, ':p_stock', $stock);
     oci_bind_by_name($stmt, ':p_imagen', $imagen);
     oci_bind_by_name($stmt, ':p_descripcion', $descripcion);
-    oci_bind_by_name($stmt, ':p_memoria', $memoria);
-    oci_bind_by_name($stmt, ':p_velocidad', $velocidad);
-    oci_bind_by_name($stmt, ':p_tipo_memoria', $tipo_memoria);
-    oci_bind_by_name($stmt, ':p_nucleos', $nucleos);
-    oci_bind_by_name($stmt, ':p_tipo_disco', $tipo_disco);
-    oci_bind_by_name($stmt, ':p_memoria_ram', $memoria_ram);
-    oci_bind_by_name($stmt, ':p_tamano', $tamano);
-    oci_bind_by_name($stmt, ':p_peso', $peso);
-    oci_bind_by_name($stmt, ':p_tipo_liquido', $tipo_liquido);
-    oci_bind_by_name($stmt, ':p_tipo_conexion', $tipo_conexion);
-    oci_bind_by_name($stmt, ':p_senal_ruido', $senal_ruido);
-    oci_bind_by_name($stmt, ':p_potencia', $potencia);
 
     // Ejecutar la consulta
     $result = oci_execute($stmt);
+
+    // Verificar si hubo errores
     if (!$result) {
         $e = oci_error($stmt);
         trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
     }
 
-    // Liberar recursos y cerrar la conexión
+    // Liberar recursos
+    oci_free_statement($stmt);
+
+    // Dependiendo del tipo de producto, ejecutamos la consulta correspondiente
+    switch ($tipo_producto) {
+        case 1: // Discos duros
+            $query = "UPDATE discos_duros
+                      SET memoria = :p_memoria,
+                          velocidad = :p_velocidad,
+                          tipo_disco = :p_tipo_disco
+                      WHERE id_producto = :p_id_producto";
+            break;
+        case 2: // Fuentes de alimentación
+            $query = "UPDATE fuentes_alimentacion
+                      SET potencia = :p_potencia
+                      WHERE id_producto = :p_id_producto";
+            break;
+        case 3: // Memorias RAM
+            $query = "UPDATE memorias_ram
+                      SET memoria = :p_memoria,
+                          tipo_memoria = :p_tipo_memoria
+                      WHERE id_producto = :p_id_producto";
+            break;
+        case 4: // Periféricos
+            $query = "UPDATE perifericos
+                      SET tipo_conexion = :p_tipo_conexion
+                      WHERE id_producto = :p_id_producto";
+            break;
+        case 5: // Placas base
+            $query = "UPDATE placas_bases
+                      SET memoria = :p_memoria,
+                          velocidad = :p_velocidad,
+                          tipo_memoria = :p_tipo_memoria
+                      WHERE id_producto = :p_id_producto";
+            break;
+        case 6: // Procesadores
+            $query = "UPDATE procesadores
+                      SET memoria = :p_memoria,
+                          velocidad = :p_velocidad,
+                          tipo_memoria = :p_tipo_memoria,
+                          nucleos = :p_nucleos
+                      WHERE id_producto = :p_id_producto";
+            break;
+        case 7: // Refrigeraciones líquidas
+            $query = "UPDATE refrigeraciones_liquidas
+                      SET tamano = :p_tamano,
+                          velocidad = :p_velocidad,
+                          peso = :p_peso,
+                          tipo_liquido = :p_tipo_liquido
+                      WHERE id_producto = :p_id_producto";
+            break;
+        case 8: // Tarjetas gráficas
+            $query = "UPDATE tarjetas_graficas
+                      SET memoria_ram = :p_memoria_ram,
+                          nucleos = :p_nucleos,
+                          tipo_memoria = :p_tipo_memoria
+                      WHERE id_producto = :p_id_producto";
+            break;
+        case 9: // Tarjetas de sonido
+            $query = "UPDATE tarjetas_sonidos
+                      SET tipo_conexion = :p_tipo_conexion,
+                          senal_ruido = :p_senal_ruido
+                      WHERE id_producto = :p_id_producto";
+            break;
+        case 10: // Torres
+            $query = "UPDATE torres
+                      SET tipo_conexion = :p_tipo_conexion,
+                          tamano = :p_tamano,
+                          peso = :p_peso
+                      WHERE id_producto = :p_id_producto";
+            break;
+        case 11: // Ventiladores
+            $query = "UPDATE ventiladores
+                      SET velocidad = :p_velocidad,
+                          tamano = :p_tamano,
+                          peso = :p_peso
+                      WHERE id_producto = :p_id_producto";
+            break;
+        default:
+            // Tipo de producto no válido
+            return false;
+    }
+
+    // Preparar la consulta
+    $stmt = oci_parse($conn, $query);
+
+    // Asociar parámetros según el tipo de producto
+    oci_bind_by_name($stmt, ':p_id_producto', $id_producto);
+    switch ($tipo_producto) {
+        case 1: // Discos duros
+            oci_bind_by_name($stmt, ':p_memoria', $memoria);
+            oci_bind_by_name($stmt, ':p_velocidad', $velocidad);
+            oci_bind_by_name($stmt, ':p_tipo_disco', $tipo_disco);
+            break;
+        case 2: // Fuentes de alimentación
+            oci_bind_by_name($stmt, ':p_potencia', $potencia);
+            break;
+        case 3: // Memorias RAM
+            oci_bind_by_name($stmt, ':p_memoria', $memoria);
+            oci_bind_by_name($stmt, ':p_tipo_memoria', $tipo_memoria);
+            break;
+        case 4: // Periféricos
+            oci_bind_by_name($stmt, ':p_tipo_conexion', $tipo_conexion);
+            break;
+        case 5: // Placas base
+            oci_bind_by_name($stmt, ':p_memoria', $memoria);
+            oci_bind_by_name($stmt, ':p_velocidad', $velocidad);
+            oci_bind_by_name($stmt, ':p_tipo_memoria', $tipo_memoria);
+            break;
+        case 6: // Procesadores
+            oci_bind_by_name($stmt, ':p_memoria', $memoria);
+            oci_bind_by_name($stmt, ':p_velocidad', $velocidad);
+            oci_bind_by_name($stmt, ':p_tipo_memoria', $tipo_memoria);
+            oci_bind_by_name($stmt, ':p_nucleos', $nucleos);
+            break;
+        case 7: // Refrigeraciones líquidas
+            oci_bind_by_name($stmt, ':p_tamano', $tamano);
+            oci_bind_by_name($stmt, ':p_velocidad', $velocidad);
+            oci_bind_by_name($stmt, ':p_peso', $peso);
+            oci_bind_by_name($stmt, ':p_tipo_liquido', $tipo_liquido);
+            break;
+        case 8: // Tarjetas gráficas
+            oci_bind_by_name($stmt, ':p_memoria_ram', $memoria_ram);
+            oci_bind_by_name($stmt, ':p_nucleos', $nucleos);
+            oci_bind_by_name($stmt, ':p_tipo_memoria', $tipo_memoria);
+            break;
+        case 9: // Tarjetas de sonido
+            oci_bind_by_name($stmt, ':p_tipo_conexion', $tipo_conexion);
+            oci_bind_by_name($stmt, ':p_senal_ruido', $senal_ruido);
+            break;
+        case 10: // Torres
+            oci_bind_by_name($stmt, ':p_tipo_conexion', $tipo_conexion);
+            oci_bind_by_name($stmt, ':p_tamano', $tamano);
+            oci_bind_by_name($stmt, ':p_peso', $peso);
+            break;
+        case 11: // Ventiladores
+            oci_bind_by_name($stmt, ':p_velocidad', $velocidad);
+            oci_bind_by_name($stmt, ':p_tamano', $tamano);
+            oci_bind_by_name($stmt, ':p_peso', $peso);
+            break;
+    }
+    
+    $result = oci_execute($stmt);
+
+    if (!$result) {
+        $e = oci_error($stmt);
+        trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+    }
+
     oci_free_statement($stmt);
     oci_close($conn);
 
