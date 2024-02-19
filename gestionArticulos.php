@@ -22,7 +22,13 @@
         include_once 'menu.php';
     ?>
     </header>
-    
+    <nav aria-label="breadcrumbs">
+    <ol>
+      <li><a href="index.php">Main</a></li>
+      <li><a href="products.php">Products</a></li>
+      <li><a href="gestionArticulos.php">Manage Products</a></li>
+    </ol>
+  </nav>  
 <br>
 <table>
         <tr>

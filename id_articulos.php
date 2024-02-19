@@ -18,6 +18,21 @@
         include_once 'menu.php';
     ?>
     </header>
+    <nav aria-label="breadcrumbs">
+    <ol>
+      <li><a href="index.php">Main</a></li>
+      <li><a href="products.php">Products</a></li>
+      <li><a>
+        <?php 
+        include_once 'bbdd.php';
+        $id_producto = $_GET['id_producto'];
+        $productos = get_productos_id($id_producto);
+        $producto = $productos[0];
+        echo $producto['NOMBRE'];
+        ?>
+    </a></li>
+    </ol>
+  </nav>      
     <?php
         include_once 'bbdd.php';
         if(isset($_GET['id_producto'])) {

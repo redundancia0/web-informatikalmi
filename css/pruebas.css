@@ -1,0 +1,23 @@
+nav[aria-label="breadcrumbs"] {
+    margin: 10px 0;
+  }
+  
+  nav[aria-label="breadcrumbs"] ol {
+    list-style: none;
+    padding: 0;
+  }
+  
+  nav[aria-label="breadcrumbs"] ol li {
+    display: inline;
+    margin-right: 5px;
+  }
+  
+  nav[aria-label="breadcrumbs"] ol li::after {
+    content: ">";
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  
+  nav[aria-label="breadcrumbs"] ol li:last-child::after {
+    content: "";
+  }  

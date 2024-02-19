@@ -28,9 +28,14 @@ section p {
     font-weight: bold;
 }
 
-section img {
+.container img {
     width: 300px;
     margin: 0 auto;
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.container img:hover {
+    transform: rotate(20deg);
 }
 
 span {
@@ -72,4 +77,8 @@ input {
 #submit {
     width: 50px;
     height: 25px;
+}
+
+footer {
+    position: fixed;
 }

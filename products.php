@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/articulos.css">
     <link rel="stylesheet" href="css/comun.css">
     <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
-    <title>Articles</title>
+    <title>Products</title>
 </head>
 <body>
     <header>
@@ -15,10 +15,13 @@
     ?>
     </header>
     <article>
-    <?php
-        include_once 'menu.php';
-    ?>
     </header>
+    <nav aria-label="breadcrumbs">
+    <ol>
+      <li><a href="index.php">Main</a></li>
+      <li><a href="products.php">Products</a></li>
+    </ol>
+  </nav>
     <?php
 include_once 'bbdd.php'; 
 $productos = selectProductos(); 
@@ -33,9 +36,7 @@ echo '<input type="search" id="searchInput" name="term" placeholder="Buscar">';
 echo '<input type="submit" id="submit" value="Buscar">';
 echo '</div>';   
 echo '</form>';
-
 echo '<br>';
-echo '<h1 class="titulo">Articulos Iniciales</h1>';
 echo '<div class="container">';
 if ($productos !== false) {
     foreach ($productos as $producto) {

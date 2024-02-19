@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="css/subirArticulos.css">
     <link rel="stylesheet" href="css/comun.css">
     <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
-    <title>Upload Articles</title>
+    <title>Upload Products</title>
 </head>
 <body>
     <header>
@@ -25,7 +25,13 @@
     $productos = get_productos_id($id_producto);
     ?>
     </header>
-    <h1>Upload Articles</h1>
+    <nav aria-label="breadcrumbs">
+    <ol>
+      <li><a href="index.php">Main</a></li>
+      <li><a href="products.php">Products</a></li>
+      <li><a href="insertarArticulos.php">Upload Products</a></li>
+    </ol>
+  </nav>
     <script src="script.js"></script>
     <form method="post" action="insertArticulo.php" enctype="multipart/form-data">
     <h1>Product Information</h1>

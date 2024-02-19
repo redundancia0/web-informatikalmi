@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/articulos.css">
     <link rel="stylesheet" href="css/comun.css">
     <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
     <title>Search</title>
@@ -34,12 +35,11 @@ echo '</form>';
     foreach ($resultados as $articulo) {
         echo '<article>';
         echo '<section>';
-        echo '<h1>' . $articulo['NOMBRE'] . '</h1>';
+        echo '<a href="id_articulos.php?id_producto='.$articulo["ID_PRODUCTO"].'"><h2>' . $articulo['NOMBRE'] . '</h2></a>';
         echo '<br>';
         echo '<img src="' . $articulo['IMAGEN'] . '" alt="fotoArticulo"><br>';
         echo '<span>'. $articulo['PRECIO'] . '€</span>';
         echo '<p> Stock: ' . $articulo['STOCK'] . '</p>';
-        echo '<br>';
         echo '<p>' . $articulo['DESCRIPCION'] . '</p>';
         echo '</section>';
         echo '</article>';
